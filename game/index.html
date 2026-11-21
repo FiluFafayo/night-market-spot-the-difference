@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lantern Lane — Spot the Difference</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #14101d; color: #f6ead2; font-family: system-ui, -apple-system, sans-serif; }
+  #app { width: 1280px; max-width: 100%; margin: 0 auto; }
+  #hud { display: flex; align-items: center; gap: 16px; height: 56px; padding: 0 16px; box-sizing: border-box; background: #1e1830; border-bottom: 2px solid #d9a441; }
+  #hud .title { font-family: Georgia, serif; font-size: 22px; font-weight: bold; color: #ffd24d; white-space: nowrap; }
+  #hud .level { font-size: 14px; color: #b8a88f; white-space: nowrap; }
+  #hud .pill { font-size: 15px; font-weight: bold; white-space: nowrap; }
+  #hud .timer { flex: 1; display: flex; align-items: center; gap: 8px; }
+  #hud-timer-track { flex: 1; height: 12px; background: #3a2c4a; border-radius: 6px; overflow: hidden; }
+  #hud-timer-fill { display: block; height: 100%; width: 100%; background: #37d67a; border-radius: 6px; }
+  #hud-timer-text { font-size: 14px; font-weight: bold; min-width: 34px; }
+  #hint-button { background: #d9a441; color: #2b1d4e; border: none; border-radius: 8px; padding: 8px 14px; font-size: 15px; font-weight: bold; cursor: pointer; }
+  #hint-button:hover { background: #ffd24d; }
+  #stage { position: relative; width: 1280px; max-width: 100%; }
+  #game { display: block; width: 100%; height: auto; touch-action: none; cursor: crosshair; }
+  #overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(20, 16, 29, 0.72); }
+  #overlay[hidden] { display: none; }
+  #overlay-card { background: #241d3a; border: 2px solid #d9a441; border-radius: 16px; padding: 28px 36px; max-width: 560px; text-align: center; }
+  #overlay-card h1 { font-family: Georgia, serif; color: #ffd24d; margin: 0 0 12px; font-size: 34px; }
+  #overlay-card p { margin: 8px 0; font-size: 16px; line-height: 1.5; }
+  #overlay-card .tag { font-style: italic; color: #b8a88f; }
+  #overlay-card .rules { font-size: 14px; color: #b8a88f; }
+  #overlay-card .best { font-size: 14px; color: #b8a88f; }
+  #overlay-card .big-score { font-size: 20px; font-weight: bold; color: #37d67a; }
+  button.big { background: #37d67a; color: #10241a; border: none; border-radius: 10px; padding: 12px 28px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 12px; }
+  button.big:hover { background: #5ce696; }
+  /* Read aloud, never shown: the status line screen readers announce. */
+  #status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="hud">
+    <span class="title">Lantern Lane</span>
+    <span class="level" id="hud-level">Night Market — Level 1 of 3</span>
+    <span class="pill" id="hud-found">Found 0 / 7</span>
+    <span class="pill" id="hud-score">Score 0</span>
+    <span class="timer"><span id="hud-timer-text">120s</span><span id="hud-timer-track"><span id="hud-timer-fill"></span></span></span>
+    <span class="pill" id="hud-hints">Hints 3</span>
+    <button id="hint-button" type="button">Hint (H)</button>
+  </div>
+  <div id="stage">
+    <canvas id="game" aria-label="Lantern Lane: two pictures side by side. Click the differences between them."></canvas>
+    <div id="overlay" hidden><div id="overlay-card"></div></div>
+  </div>
+</div>
+<p id="status" role="status" aria-live="polite"></p>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
